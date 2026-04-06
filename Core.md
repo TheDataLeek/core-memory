@@ -24,19 +24,19 @@ core/
 │
 ├── Projects/
 │   └── <Name>/
-│       ├── _Node.md     ← central node: context, decisions, status
+│       ├── <Name>.md    ← central node: context, decisions, status
 │       ├── _Todo.md     ← project-scoped todo list
-│       └── <Topic>.md   ← sub-pages linked from _Node
+│       └── <Topic>.md   ← sub-pages linked from the node
 │
 ├── Writing/
 │   └── <Topic>/
-│       ├── _Node.md     ← writing topic node: themes, status, links
+│       ├── <Topic>.md   ← writing topic node: themes, status, links
 │       ├── _Todo.md     ← topic-scoped todo list
 │       └── <Draft>.md
 │
 ├── Areas/               ← ongoing responsibilities (not time-bounded)
 │   └── <Name>/
-│       ├── _Node.md
+│       ├── <Name>.md    ← central node
 │       └── _Todo.md     ← area-scoped todo list
 │
 ├── People/              ← contacts and collaborators
@@ -54,36 +54,35 @@ core/
 
 ### Before Starting Work
 1. Read `Core.md` (this file)
-2. Find the relevant project: `Projects/<Name>/_Node.md`
+2. Find the relevant project: `Projects/<Name>/<Name>.md`
 3. Read that node for context, decisions, and current status
 
 ### While Working
-- **Log decisions and context** to `_Node.md` — anything a future agent needs to know
+- **Log decisions and context** to the project node — anything a future agent needs to know
 - **Add todos** as `- [ ] Task description` (add `📅 YYYY-MM-DD` or `⏫` if relevant)
-- **Link related pages** from `_Node.md` — keep the node as the entry point
+- **Link related pages** from the project node — keep it as the entry point
 - **Add Drive links** to the `## Drive` section of the relevant node when referencing Google Drive files
 
 ### When Finishing
-- Update `_Node.md` status and any open todos
-- If you created new pages, link them from `_Node.md`
+- Update the project node status and any open todos
+- If you created new pages, link them from the project node
 
 ### Memory: Obsidian vs Claude Files
 - **Do NOT write to `~/.claude/projects/` memory files** for facts about this user's projects
-- **Do write** to the relevant `_Node.md` or sub-page instead
+- **Do write** to the relevant project node or sub-page instead
 - Claude's `~/.claude/` memory is reserved for agent behavior preferences only (how to work, not what to work on)
 
 ---
 
 ## Projects
 
-**To find a project:** `Projects/<Name>/_Node.md`
+**To find a project:** `Projects/<Name>/<Name>.md`
 
 **To create a new project:**
 1. Create folder `Projects/<Name>/`
-2. Copy `Templates/Project-Node.md` → `Projects/<Name>/_Node.md`
+2. Copy `Templates/Project-Node.md` → `Projects/<Name>/<Name>.md` (filename = folder name)
 3. Copy `Templates/Project-Todo.md` → `Projects/<Name>/_Todo.md` (edit the FROM path to match the folder)
-4. Add a link to `Projects/_Index.md`
-5. Fill in the node's context, goals, and status
+4. Fill in the node's context, goals, and status
 
 **Project naming:** Use the directory name of the associated codebase/work if applicable (e.g., `Projects/myapp/` for work in `~/myapp/`).
 
@@ -91,11 +90,11 @@ core/
 
 ## Writing Topics
 
-**To find a writing topic:** `Writing/<Topic>/_Node.md`
+**To find a writing topic:** `Writing/<Topic>/<Topic>.md`
 
 **To create a writing topic:**
 1. Create folder `Writing/<Topic>/`
-2. Copy `Templates/Writing-Node.md` → `Writing/<Topic>/_Node.md`
+2. Copy `Templates/Writing-Node.md` → `Writing/<Topic>/<Topic>.md` (filename = folder name)
 3. Copy `Templates/Writing-Todo.md` → `Writing/<Topic>/_Todo.md`
 4. Add a link to `Writing/_Index.md`
 
@@ -105,11 +104,11 @@ core/
 
 Areas are ongoing responsibilities with no defined end (health, finances, a creative practice, learning a skill).
 
-**To find an area:** `Areas/<Name>/_Node.md`
+**To find an area:** `Areas/<Name>/<Name>.md`
 
 **To create a new area:**
 1. Create folder `Areas/<Name>/`
-2. Copy `Templates/Area-Node.md` → `Areas/<Name>/_Node.md`
+2. Copy `Templates/Area-Node.md` → `Areas/<Name>/<Name>.md` (filename = folder name)
 3. Copy `Templates/Area-Todo.md` → `Areas/<Name>/_Todo.md`
 4. Add a link to `Areas/_Index.md`
 5. Fill in the node's context and current focus
@@ -251,7 +250,7 @@ Open Claude Code in or near the relevant project directory. Agent reads `Core.md
 
 | Pattern | Meaning |
 |---|---|
-| `_Node.md` | Central node for a project/area/topic (sorts to top) |
+| `<Name>.md` (matches folder name) | Central node for a project/area/topic — has `node: true` frontmatter |
 | `_Todo.md` | Todo aggregator (query or manual list) |
 | `_Index.md` | Directory listing for a top-level section |
 | `YYYY-MM-DD.md` | Date-stamped note in `Daily/` |

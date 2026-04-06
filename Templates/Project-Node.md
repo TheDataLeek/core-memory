@@ -1,3 +1,7 @@
+---
+node: true
+---
+
 # <% tp.file.folder().split("/").pop() %>
 
 **Status:** #active | #waiting | #blocked | archived  

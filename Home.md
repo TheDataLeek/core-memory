@@ -9,7 +9,7 @@
 ```dataview
 LIST
 FROM "Projects"
-WHERE file.name = "_Node" AND contains(file.tags, "active")
+WHERE node = true AND contains(file.tags, "active")
 SORT file.mtime DESC
 ```
 

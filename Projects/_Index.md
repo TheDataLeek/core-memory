@@ -5,7 +5,7 @@ Time-bounded work with a goal and an end.
 ```dataview
 LIST
 FROM "Projects"
-WHERE file.name = "_Node"
+WHERE node = true
 SORT file.mtime DESC
 ```
 
