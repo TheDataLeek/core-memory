@@ -1,5 +1,5 @@
 ---
-name: install
+name: core-mem-install
 description: Guided setup wizard — configures MCP server, auto-memory, and vault skills for a fresh Claude Code + Obsidian vault integration on any device
 allowed-tools: Read Write Edit Bash Glob
 ---
@@ -160,7 +160,7 @@ Some projects write memory to a project-specific subdirectory. Check if any are 
    ```
    !`ls ~/core/memory/ 2>/dev/null`
    ```
-   Any subdirectory here (other than files like `MEMORY.md` or skill directories like `sweep/`, `todo/`, `install/`) is a project-scoped memory directory.
+   Any subdirectory here (other than files like `MEMORY.md` or skill directories like `core-mem-sweep/`, `core-mem-todo/`, `core-mem-install/`, `core-mem-sync/`) is a project-scoped memory directory.
 
 2. For each project-scoped directory found, check if the corresponding project root exists on this device:
    ```
@@ -185,7 +185,7 @@ Some projects write memory to a project-specific subdirectory. Check if any are 
 
 ## Phase 5 — Vault Skills
 
-Link the vault's skill definitions into Claude Code's skills directory so `/sweep`, `/todo`, and `/install` are available in every session.
+Link the vault's skill definitions into Claude Code's skills directory so `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` are available in every session.
 
 1. Check if the skills directory exists:
    ```
@@ -193,21 +193,23 @@ Link the vault's skill definitions into Claude Code's skills directory so `/swee
    ```
    If missing: `!`mkdir -p ~/.claude/skills/``
 
-2. For each skill (`sweep`, `todo`, `install`), check if the symlink exists and points to the right place:
+2. For each skill, check if the symlink exists and points to the right place:
    ```
-   !`readlink ~/.claude/skills/sweep 2>/dev/null || echo "MISSING"`
-   !`readlink ~/.claude/skills/todo 2>/dev/null || echo "MISSING"`
-   !`readlink ~/.claude/skills/install 2>/dev/null || echo "MISSING"`
+   !`readlink ~/.claude/skills/core-mem-sweep 2>/dev/null || echo "MISSING"`
+   !`readlink ~/.claude/skills/core-mem-todo 2>/dev/null || echo "MISSING"`
+   !`readlink ~/.claude/skills/core-mem-install 2>/dev/null || echo "MISSING"`
+   !`readlink ~/.claude/skills/core-mem-sync 2>/dev/null || echo "MISSING"`
    ```
 
 3. For any missing or broken link, create it:
    ```
-   !`ln -sf ~/core/memory/sweep ~/.claude/skills/sweep`
-   !`ln -sf ~/core/memory/todo ~/.claude/skills/todo`
-   !`ln -sf ~/core/memory/install ~/.claude/skills/install`
+   !`ln -sf ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep`
+   !`ln -sf ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo`
+   !`ln -sf ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install`
+   !`ln -sf ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync`
    ```
 
-4. Verify all three symlinks resolve:
+4. Verify all four symlinks resolve:
    ```
    !`ls -la ~/.claude/skills/`
    ```
@@ -246,7 +248,7 @@ VAULT SETUP COMPLETE
 ✓  MCP server: mcp-obsidian registered
 ✓  Auto-memory: ~/core/memory/
 ✓  Per-project overrides: <list or "none needed">
-✓  Skills linked: /sweep  /todo  /install
+✓  Skills linked: /core-mem-sweep  /core-mem-todo  /core-mem-install  /core-mem-sync
 ────────────────────────────────────────────────
 Next: restart Claude Code to activate the MCP server,
 then open ~/core in Obsidian to verify the vault loads.

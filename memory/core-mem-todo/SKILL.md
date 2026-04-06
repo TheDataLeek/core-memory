@@ -1,5 +1,5 @@
 ---
-name: todo
+name: core-mem-todo
 description: Add a new todo to today's Daily/ note with relevant tags, priority, and captured session context to aid resumption
 allowed-tools: Read Write Edit Glob Grep Bash mcp__mcp-obsidian__obsidian_get_file_contents mcp__mcp-obsidian__obsidian_patch_content mcp__mcp-obsidian__obsidian_get_periodic_note
 ---

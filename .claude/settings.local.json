@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/zfarmer/.claude/skills/**)",
+      "Read(//Users/zfarmer/core/memory/**)"
+    ]
+  }
+}

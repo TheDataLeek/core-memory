@@ -5,8 +5,8 @@ A ready-to-use Obsidian vault that serves as a persistent second memory for Clau
 ## What this is
 
 - An Obsidian vault structured for AI-assisted knowledge work
-- Claude agents read `Core.md` at session start for operating instructions, then read the relevant `Projects/<Name>/_Node.md` for project context
-- Three Claude Code skills: `/sweep` (process daily notes into project nodes), `/todo` (add a todo with session context), `/install` (setup wizard for new devices)
+- Claude agents read `Core.md` at session start for operating instructions, then read the relevant `Projects/<Name>/<Name>.md` for project context
+- Four Claude Code skills: `/core-mem-sweep` (process daily notes into project nodes), `/core-mem-todo` (add a todo with session context), `/core-mem-install` (setup wizard for new devices), `/core-mem-sync` (pull template updates into vault)
 - Memory files that wire Claude's auto-memory into the vault instead of scattered project files
 
 ## Quickstart
@@ -57,12 +57,13 @@ Link the vault skills:
 
 ```bash
 mkdir -p ~/.claude/skills
-ln -s ~/core/memory/sweep ~/.claude/skills/sweep
-ln -s ~/core/memory/todo ~/.claude/skills/todo
-ln -s ~/core/memory/install ~/.claude/skills/install
+ln -s ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep
+ln -s ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo
+ln -s ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install
+ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
 ```
 
-Or just run `/install` in Claude Code after cloning — the wizard handles steps 2–3 interactively.
+Or just run `/core-mem-install` in Claude Code after cloning — the wizard handles steps 2–3 interactively.
 
 ### 4. Personalize
 
@@ -88,20 +89,21 @@ core/
 ├── Lists/               ← simple lists
 ├── Daily/               ← daily notes and mobile captures
 └── memory/              ← Claude auto-memory (synced with vault)
-    ├── sweep/SKILL.md   ← /sweep skill definition
-    ├── todo/SKILL.md    ← /todo skill definition
-    └── install/SKILL.md ← /install skill definition
+    ├── core-mem-sweep/SKILL.md   ← /core-mem-sweep skill definition
+    ├── core-mem-todo/SKILL.md    ← /core-mem-todo skill definition
+    ├── core-mem-install/SKILL.md ← /core-mem-install skill definition
+    └── core-mem-sync/SKILL.md    ← /core-mem-sync skill definition
 ```
 
 ## How it works with Claude
 
-At the start of any session, Claude reads `Core.md` for operating instructions. For project work, it reads `Projects/<Name>/_Node.md` for context, decisions, and current status. It writes facts back to `_Node.md` — never to `~/.claude/projects/`.
+At the start of any session, Claude reads `Core.md` for operating instructions. For project work, it reads `Projects/<Name>/<Name>.md` for context, decisions, and current status. It writes facts back to the project node — never to `~/.claude/projects/`.
 
 The `memory/` directory is Claude's auto-memory destination. Memory files written here sync across devices with the vault, and Claude reads them at the start of each conversation via `MEMORY.md`.
 
 ## New device setup
 
-Run `/install` in Claude Code. The wizard walks through all six setup phases: vault sync check, plugin install, MCP registration, auto-memory config, per-project overrides, and skill linking.
+Run `/core-mem-install` in Claude Code. The wizard walks through all six setup phases: vault sync check, plugin install, MCP registration, auto-memory config, per-project overrides, and skill linking.
 
 ## License
 

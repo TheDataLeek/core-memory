@@ -235,11 +235,13 @@ For each project that has its own memory subdirectory, create `.claude/settings.
 
 ```bash
 mkdir -p ~/.claude/skills
-ln -s ~/core/memory/sweep ~/.claude/skills/sweep
-ln -s ~/core/memory/todo ~/.claude/skills/todo
+ln -s ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep
+ln -s ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo
+ln -s ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install
+ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
 ```
 
-This makes `/sweep` and `/todo` available as Claude Code skills. Definitions live in the vault so they sync automatically — just re-run these on each new device.
+This makes `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` available as Claude Code skills. Definitions live in the vault so they sync automatically — just re-run these on each new device.
 
 ### 6. Start a session
 Open Claude Code in or near the relevant project directory. Agent reads `Core.md` first, then `Projects/<relevant>/_Node.md`.

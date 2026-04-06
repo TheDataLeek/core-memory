@@ -10,7 +10,7 @@ This is an Obsidian vault — a persistent "second memory" wiki. It is not a sof
 
 Before any work session:
 1. Read `Core.md` — the agent bootstrap document (vault structure, rules, conventions, todo syntax, how to create projects/areas/writing topics)
-2. Read `Projects/<Name>/_Node.md` for the relevant project context
+2. Read `Projects/<Name>/<Name>.md` for the relevant project context
 
 ## Integration & Skills Setup
 
@@ -31,13 +31,15 @@ claude mcp add --global mcp-obsidian \
 ```
 Per-project override: add `.claude/settings.local.json` with `"autoMemoryDirectory": "~/core/memory/<project-name>/"` in the project root.
 
-**Vault skills** (`/sweep`, `/todo`):
+**Vault skills** (`/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, `/core-mem-sync`):
 ```bash
 mkdir -p ~/.claude/skills
-ln -s ~/core/memory/sweep ~/.claude/skills/sweep
-ln -s ~/core/memory/todo ~/.claude/skills/todo
+ln -s ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep
+ln -s ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo
+ln -s ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install
+ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
 ```
 
 ## Memory Policy
 
-Project facts → write to `Projects/<Name>/_Node.md` (or a sub-page linked from it). Agent behavior preferences → write to `~/.claude/` memory only. Never use `~/.claude/projects/` for project facts; the vault is the authoritative store.
+Project facts → write to `Projects/<Name>/<Name>.md` (or a sub-page linked from it). Agent behavior preferences → write to `~/.claude/` memory only. Never use `~/.claude/projects/` for project facts; the vault is the authoritative store.
