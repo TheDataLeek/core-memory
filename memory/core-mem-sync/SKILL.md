@@ -153,7 +153,7 @@ Apply the approved changes:
 
 1. Verify all node files have `node: true` frontmatter:
    ```
-   !`grep -rL "^node: true" ~/core/Projects/*/$(basename $(dirname {})).md 2>/dev/null`
+   !`for d in ~/core/Projects/*/; do name=$(basename "$d"); [ -f "$d/$name.md" ] && grep -qL "^node: true" "$d/$name.md" && echo "$d/$name.md"; done`
    ```
 
 2. Verify all skills are symlinked:
