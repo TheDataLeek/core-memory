@@ -1,6 +1,6 @@
 # Home
 
-> Quick links: [[_Todo]] | [[Inbox]] | [[Drive]] | [[Projects/_Index|Projects]] | [[Writing/_Index|Writing]] | [[Areas/_Index|Areas]] | [[People/_Index|People]] | [[Lists/_Index|Lists]] | [[Core]] | [[memory/MEMORY.md|Memory]]
+> Quick links: [[Todo]] | [[Inbox]] | [[Drive]] | [[Projects/Index|Projects]] | [[Writing/Index|Writing]] | [[Areas/Index|Areas]] | [[People/Index|People]] | [[Lists/Index|Lists]] | [[Core]] | [[memory/MEMORY.md|Memory]]
 
 ---
 

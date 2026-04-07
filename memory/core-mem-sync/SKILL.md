@@ -47,7 +47,7 @@ Compare these files directly (template is authoritative for structure, but vault
 - `Core.md`
 - `CLAUDE.md`
 - `Home.md`
-- `_Todo.md`
+- `Todo.md`
 - `Drive.md`
 - `Inbox.md`
 
@@ -69,7 +69,7 @@ These are fully template-owned. Replace vault versions with template versions:
 - `Templates/List.md`
 
 ### 3c — Index pages
-Compare `_Index.md` files in Projects/, Writing/, Areas/, People/, Lists/. Template owns the Dataview queries and instructions; vault owns the manual links.
+Compare `Index.md` files in Projects/, Writing/, Areas/, People/, Lists/. Template owns the Dataview queries and instructions; vault owns the manual links.
 
 ### 3d — Skills
 Compare skill definitions:
@@ -124,7 +124,7 @@ SKIP (vault content preserved):
   ≡ Projects/ — user content, not touched
 
 NO CHANGES:
-  = _Todo.md — identical
+  = Todo.md — identical
 ────────────────────────────────────────────────
 ```
 
@@ -163,7 +163,7 @@ Apply the approved changes:
 
 3. Verify Dataview queries use `node = true` (not `file.name = "_Node"`):
    ```
-   !`grep -r "file.name.*_Node" ~/core/*.md ~/core/**/_Index.md 2>/dev/null`
+   !`grep -r "file.name.*_Node" ~/core/*.md ~/core/**/Index.md 2>/dev/null`
    ```
 
 ---

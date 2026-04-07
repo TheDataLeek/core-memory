@@ -5,7 +5,7 @@ Contacts, collaborators, and anyone worth remembering context about.
 ```dataview
 LIST
 FROM "People"
-WHERE file.name != "_Index"
+WHERE file.name != "Index"
 SORT file.name ASC
 ```
 

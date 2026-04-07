@@ -27,7 +27,7 @@ In Obsidian: **Settings → Community Plugins → Browse**
 |---|---|
 | **Tasks** | Indexes all `- [ ]` checkboxes; powers todo queries |
 | **Templater** | Set template folder to `Templates`; enable trigger on new file |
-| **Dataview** | Powers index queries in `_Index.md` files |
+| **Dataview** | Powers index queries in `Index.md` files |
 | **Local REST API** | Exposes vault to Claude via MCP; note your API key |
 | **Homepage** | Set homepage to `Home` |
 | **Tag Wrangler** | Optional: rename/merge tags vault-wide |
@@ -78,7 +78,7 @@ core/
 ├── Core.md              ← agent bootstrap (read this first)
 ├── CLAUDE.md            ← Claude Code-specific config
 ├── Home.md              ← dashboard (opens on launch)
-├── _Todo.md             ← global todo view
+├── Todo.md              ← global todo view
 ├── Inbox.md             ← quick capture
 ├── Drive.md             ← Google Drive master directory
 ├── Templates/           ← Templater templates for all node types

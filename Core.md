@@ -18,26 +18,26 @@ A persistent "second memory" organized as a wiki. It replaces Claude's file-base
 core/
 ├── Core.md              ← you are here
 ├── Home.md              ← human dashboard (open on startup)
-├── _Todo.md             ← global todo view (all projects)
+├── Todo.md             ← global todo view (all projects)
 ├── Inbox.md             ← desktop quick capture
 ├── Drive.md             ← Google Drive master directory
 │
 ├── Projects/
 │   └── <Name>/
 │       ├── <Name>.md    ← central node: context, decisions, status
-│       ├── _Todo.md     ← project-scoped todo list
+│       ├── Todo.md     ← project-scoped todo list
 │       └── <Topic>.md   ← sub-pages linked from the node
 │
 ├── Writing/
 │   └── <Topic>/
 │       ├── <Topic>.md   ← writing topic node: themes, status, links
-│       ├── _Todo.md     ← topic-scoped todo list
+│       ├── Todo.md     ← topic-scoped todo list
 │       └── <Draft>.md
 │
 ├── Areas/               ← ongoing responsibilities (not time-bounded)
 │   └── <Name>/
 │       ├── <Name>.md    ← central node
-│       └── _Todo.md     ← area-scoped todo list
+│       └── Todo.md     ← area-scoped todo list
 │
 ├── People/              ← contacts and collaborators
 │   └── <Name>.md
@@ -81,7 +81,7 @@ core/
 **To create a new project:**
 1. Create folder `Projects/<Name>/`
 2. Copy `Templates/Project-Node.md` → `Projects/<Name>/<Name>.md` (filename = folder name)
-3. Copy `Templates/Project-Todo.md` → `Projects/<Name>/_Todo.md` (edit the FROM path to match the folder)
+3. Copy `Templates/Project-Todo.md` → `Projects/<Name>/Todo.md` (edit the FROM path to match the folder)
 4. Fill in the node's context, goals, and status
 
 **Project naming:** Use the directory name of the associated codebase/work if applicable (e.g., `Projects/myapp/` for work in `~/myapp/`).
@@ -95,8 +95,8 @@ core/
 **To create a writing topic:**
 1. Create folder `Writing/<Topic>/`
 2. Copy `Templates/Writing-Node.md` → `Writing/<Topic>/<Topic>.md` (filename = folder name)
-3. Copy `Templates/Writing-Todo.md` → `Writing/<Topic>/_Todo.md`
-4. Add a link to `Writing/_Index.md`
+3. Copy `Templates/Writing-Todo.md` → `Writing/<Topic>/Todo.md`
+4. Add a link to `Writing/Index.md`
 
 ---
 
@@ -109,8 +109,8 @@ Areas are ongoing responsibilities with no defined end (health, finances, a crea
 **To create a new area:**
 1. Create folder `Areas/<Name>/`
 2. Copy `Templates/Area-Node.md` → `Areas/<Name>/<Name>.md` (filename = folder name)
-3. Copy `Templates/Area-Todo.md` → `Areas/<Name>/_Todo.md`
-4. Add a link to `Areas/_Index.md`
+3. Copy `Templates/Area-Todo.md` → `Areas/<Name>/Todo.md`
+4. Add a link to `Areas/Index.md`
 5. Fill in the node's context and current focus
 
 ---
@@ -130,8 +130,8 @@ Todos use the **Tasks plugin**. Write tasks as standard checkboxes anywhere in t
 **Other metadata:** `📅 YYYY-MM-DD` due · `⏳ YYYY-MM-DD` scheduled · `🔁 every week` recurrence
 
 **Viewing todos:**
-- All open tasks: `_Todo.md` at vault root
-- Project-scoped: `Projects/<Name>/_Todo.md`
+- All open tasks: `Todo.md` at vault root
+- Project-scoped: `Projects/<Name>/Todo.md`
 
 **Agents:** write plain `- [ ] Task` checkboxes. Add `📅` or `⏫` only when the due date or priority is genuinely known. Do not add `#project/<name>` tags — scoping is handled by folder path in the query.
 
@@ -244,7 +244,7 @@ ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
 This makes `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` available as Claude Code skills. Definitions live in the vault so they sync automatically — just re-run these on each new device.
 
 ### 6. Start a session
-Open Claude Code in or near the relevant project directory. Agent reads `Core.md` first, then `Projects/<relevant>/_Node.md`.
+Open Claude Code in or near the relevant project directory. Agent reads `Core.md` first, then `Projects/<relevant>/<relevant>.md`.
 
 ---
 
@@ -253,8 +253,8 @@ Open Claude Code in or near the relevant project directory. Agent reads `Core.md
 | Pattern | Meaning |
 |---|---|
 | `<Name>.md` (matches folder name) | Central node for a project/area/topic — has `node: true` frontmatter |
-| `_Todo.md` | Todo aggregator (query or manual list) |
-| `_Index.md` | Directory listing for a top-level section |
+| `Todo.md` | Todo aggregator (query or manual list) |
+| `Index.md` | Directory listing for a top-level section |
 | `YYYY-MM-DD.md` | Date-stamped note in `Daily/` |
 | `Title Case.md` | Regular sub-page |
 

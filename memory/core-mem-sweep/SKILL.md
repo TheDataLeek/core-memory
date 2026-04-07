@@ -62,8 +62,8 @@ Show the user the cluster list before continuing:
 
 For each cluster, find the best destination in the vault:
 
-1. Search `Projects/_Index.md`, `Writing/_Index.md`, `Areas/_Index.md` for matching nodes.
-2. For each match, record the destination path (e.g. `Projects/myapp/_Node.md`).
+1. Search `Projects/Index.md`, `Writing/Index.md`, `Areas/Index.md` for matching nodes.
+2. For each match, record the destination path (e.g. `Projects/myapp/myapp.md`).
 3. For clusters with no match:
    - If it looks like a new project/area/writing topic → flag as **PROPOSED NEW NODE**
    - If it's a one-off idea or reference → route to `Inbox.md`
@@ -96,9 +96,9 @@ For any cluster that needs a new tag or a new vault node, prepare proposals. **D
 Present to the user:
 
 **Proposed new nodes:**
-- `Projects/d3-charting/` with `_Node.md` — for the D3 charting side-project idea
+- `Projects/d3-charting/` with `d3-charting.md` — for the D3 charting side-project idea
   - Template: `Templates/Project-Node.md`
-  - Would be linked from `Projects/_Index.md`
+  - Would be linked from `Projects/Index.md`
 
 **Proposed new tags:**
 - `#project/d3-charting` — to scope tasks and notes for the D3 project
@@ -120,7 +120,7 @@ ROUTING PLAN
 ────────────────────────────────────────────────
 Daily/2026-04-06.md
   → [TODO]  "extend the D3 charting stuff"
-      dest: Projects/d3-charting/_Node.md (NEW — pending approval)
+      dest: Projects/d3-charting/d3-charting.md (NEW — pending approval)
       tag:  #project/d3-charting (NEW — pending approval)
 
   → [NOTE]  ... (any other content)
@@ -160,7 +160,7 @@ With user approval, execute the routing plan:
    - Create the directory
    - Copy the appropriate template (`Templates/Project-Node.md`, etc.)
    - Fill in the project name and today's date
-   - Add the link to the relevant `_Index.md`
+   - Add the link to the relevant `Index.md`
 
 4. **Do not delete or overwrite any existing content.** Only append.
 
@@ -188,7 +188,7 @@ SWEEP COMPLETE — YYYY-MM-DD
 ────────────────────────────────────────────────
 Processed:  1 daily note
 Items filed: 3
-  → Projects/d3-charting/_Node.md  (1 todo, 1 note)
+  → Projects/d3-charting/d3-charting.md  (1 todo, 1 note)
   → Inbox.md                        (1 unroutable item)
 New nodes created: Projects/d3-charting/
 New tags proposed: #project/d3-charting

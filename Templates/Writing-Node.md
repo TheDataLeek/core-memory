@@ -1,5 +1,6 @@
 ---
 node: true
+aliases: [<% tp.file.folder().split("/").pop() %>]
 ---
 
 # <% tp.file.folder().split("/").pop() %>
@@ -45,4 +46,4 @@ node: true
 
 - [ ] 
 
-See also: [[_Todo|_Todo]] (this topic) · [[/_Todo|Global Todos]]
+See also: [[Todo]] (this topic) · [[Todo|Global Todos]]
