@@ -6,7 +6,7 @@ allowed-tools: Read Write Edit Bash Glob Grep Agent
 
 You are syncing the user's Obsidian vault at `~/core` with its upstream template at `~/projects/core-memory`.
 
-The template is the source of truth for **structural files** (templates, skills, CLAUDE.md, Core.md, index pages, Obsidian config, memory scaffolding). The vault contains **user content** (project nodes, daily notes, people, custom memory files) that must never be overwritten.
+The template is the source of truth for **structural files** (templates, skills, CLAUDE.md, Core.md, index pages, Obsidian config). The vault contains **user content** (project nodes, daily notes, people) that must never be overwritten.
 
 ---
 
@@ -73,20 +73,12 @@ Compare `Index.md` files in Projects/, Writing/, Areas/, People/, Lists/. Templa
 
 ### 3d — Skills
 Compare skill definitions:
-- `memory/core-mem-sweep/SKILL.md`
-- `memory/core-mem-todo/SKILL.md`
-- `memory/core-mem-install/SKILL.md`
-- `memory/core-mem-sync/SKILL.md`
+- `.skills/core-mem-sweep/SKILL.md`
+- `.skills/core-mem-todo/SKILL.md`
+- `.skills/core-mem-install/SKILL.md`
+- `.skills/core-mem-sync/SKILL.md`
 
 Check for new skills in the template that don't exist in the vault.
-
-### 3e — Memory scaffolding
-Compare template-provided memory files:
-- `memory/MEMORY.md` (merge — template adds new entries, vault has custom entries)
-- `memory/obsidian_vault.md`
-- `memory/vault_memory_policy.md` (or `vault_policy.md`)
-- `memory/user_profile.md` (template has placeholder; vault has real content — never overwrite)
-- `memory/feedback_justfile.md`
 
 ### 3f — Obsidian config
 Compare `.obsidian/` config files:
@@ -114,13 +106,13 @@ SYNC PLAN — ~/projects/core-memory → ~/core
 APPLY (template → vault):
   ✎ Core.md — updated vault structure diagram, naming conventions
   ✎ Templates/Project-Node.md — added node:true frontmatter
-  + memory/core-mem-sync/SKILL.md — new /core-mem-sync skill
+  + .skills/core-mem-sync/SKILL.md — new /core-mem-sync skill
 
 MERGE (combine both):
-  ⊕ memory/MEMORY.md — add new skill entry, keep custom entries
+  ⊕ Projects/Projects.md — add template Dataview query, keep manual links
 
 SKIP (vault content preserved):
-  ≡ memory/user_profile.md — vault has real content
+  ≡ Daily/ — user content, not touched
   ≡ Projects/ — user content, not touched
 
 NO CHANGES:
@@ -145,7 +137,7 @@ Apply the approved changes:
 - Project node files (`Projects/*/`)
 - Daily notes (`Daily/`)
 - People pages (`People/`)
-- User-customized memory files (`memory/user_profile.md`, custom feedback files)
+- Writing drafts and Lists (`Writing/`, `Lists/`)
 
 ---
 

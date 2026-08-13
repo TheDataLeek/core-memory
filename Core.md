@@ -12,6 +12,28 @@ A persistent "second memory" organized as a wiki. It replaces Claude's file-base
 
 ---
 
+## Design Philosophy: Small Notes, Tightly Linked
+
+This vault follows a Wikipedia-style model. Each note should cover **one topic** and be digestible on its own. If a Wikipedia article would have five sections, this vault would have five linked pages instead of one long file.
+
+**Node files** (`<Name>.md`) are index pages — a concise overview with links to focused sub-pages. They should stay short enough to skim in 30 seconds. When a section of a node grows past a few paragraphs, break it out into its own page and link to it.
+
+**Sub-pages** (`Topic.md`) go deep on a single subject: a decision, an event, a technical approach, a timeline. They link back to their parent node and cross-link to related pages in other projects.
+
+**Why this matters:**
+- You can read at the level of detail you need — skim the node, or drill into a sub-page
+- Cross-linking surfaces connections between projects that a monolithic file buries
+- Agents can read just the pages they need instead of loading entire project histories
+- Obsidian's graph view and backlinks become useful when notes are granular
+
+**Rules of thumb:**
+- A node file should rarely exceed ~100 lines
+- If you're appending more than a few paragraphs to an existing file, make a new sub-page instead
+- Every sub-page links back to its parent node; the parent node lists all sub-pages under `## Pages`
+- Prefer a new page over a new section in an existing page
+
+---
+
 ## Vault Structure
 
 ```
@@ -58,19 +80,21 @@ core/
 3. Read that node for context, decisions, and current status
 
 ### While Working
+- **Keep notes small and focused** — if you're writing more than a few paragraphs, create a sub-page and link to it from the node. See *Design Philosophy* above
 - **Log decisions and context** to the project node — anything a future agent needs to know
 - **Add todos** as `- [ ] Task description` (add `📅 YYYY-MM-DD` or `⏫` if relevant)
 - **Link related pages** from the project node — keep it as the entry point
+- **Cross-link between projects** when topics overlap — a sub-page in one project can link to a sub-page in another
 - **Add Drive links** to the `## Drive` section of the relevant node when referencing Google Drive files
 
 ### When Finishing
 - Update the project node status and any open todos
 - If you created new pages, link them from the project node
 
-### Memory: Obsidian vs Claude Files
-- **Do NOT write to `~/.claude/projects/` memory files** for facts about this user's projects
-- **Do write** to the relevant project node or sub-page instead
-- Claude's `~/.claude/` memory is reserved for agent behavior preferences only (how to work, not what to work on)
+### Memory: Vault vs Agent Store
+- **Do NOT scatter project facts into per-session agent memory files** — write them to the relevant project node or sub-page instead
+- The vault is the authoritative store for *what* to work on (project knowledge, decisions, history)
+- The agent's own store is reserved for *how* to work (agent identity and behavior preferences), not project facts
 
 ---
 
@@ -215,36 +239,20 @@ Or add manually to `~/.claude/settings.json` under `mcpServers`:
 ```
 MCP source: https://github.com/MarkusPfundstein/mcp-obsidian
 
-### 4. Configure auto-memory directory
-
-In `~/.claude/settings.json`, set:
-```json
-{
-  "autoMemoryDirectory": "~/core/memory/"
-}
-```
-
-For each project that has its own memory subdirectory, create `.claude/settings.local.json` in that project's root:
-```json
-{
-  "autoMemoryDirectory": "~/core/memory/<project-name>/"
-}
-```
-
-### 5. Link vault skills into Claude Code
+### 4. Link vault skills into Claude Code
 
 ```bash
 mkdir -p ~/.claude/skills
-ln -s ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep
-ln -s ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo
-ln -s ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install
-ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
+ln -s ~/core/.skills/core-mem-sweep ~/.claude/skills/core-mem-sweep
+ln -s ~/core/.skills/core-mem-todo ~/.claude/skills/core-mem-todo
+ln -s ~/core/.skills/core-mem-install ~/.claude/skills/core-mem-install
+ln -s ~/core/.skills/core-mem-sync ~/.claude/skills/core-mem-sync
 ```
 
-This makes `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` available as Claude Code skills. Definitions live in the vault so they sync automatically — just re-run these on each new device.
+This makes `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` available as Claude Code skills. Definitions live in the vault (`.skills/`) so they sync automatically — just re-run these on each new device.
 
-### 6. Start a session
-Open Claude Code in or near the relevant project directory. Agent reads `Core.md` first, then `Projects/<relevant>/<relevant>.md`.
+### 5. Start a session
+Open the agent in or near the relevant project directory. It reads `Core.md` first, then `Projects/<relevant>/<relevant>.md`.
 
 ---
 

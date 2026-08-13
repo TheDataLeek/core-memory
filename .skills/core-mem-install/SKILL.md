@@ -1,6 +1,6 @@
 ---
 name: core-mem-install
-description: Guided setup wizard — configures MCP server, auto-memory, and vault skills for a fresh Claude Code + Obsidian vault integration on any device
+description: Guided setup wizard — configures MCP server and vault skills for a fresh Claude Code + Obsidian vault integration on any device
 allowed-tools: Read Write Edit Bash Glob
 ---
 
@@ -115,75 +115,7 @@ Register the `mcp-obsidian` server with Claude Code so agents can read and write
 
 ---
 
-## Phase 3 — Auto-Memory Directory
-
-Configure Claude Code to write memory files into the vault instead of `~/.claude/projects/`.
-
-1. Locate the settings file:
-   ```
-   !`ls ~/.claude/settings.json 2>/dev/null && echo "EXISTS" || echo "MISSING"`
-   ```
-
-2. Read the current content (if it exists). Use the Read tool on `~/.claude/settings.json`.
-
-3. Check if `autoMemoryDirectory` is already set to `~/core/memory/`:
-   - **Already set correctly:** report and skip to Phase 4.
-   - **Set to something else:** ask the user whether to update it.
-   - **Not set or file missing:** add or create it.
-
-4. To add `autoMemoryDirectory` to an existing settings file, edit it to include:
-   ```json
-   "autoMemoryDirectory": "~/core/memory/"
-   ```
-   Preserve all other existing keys.
-
-   If the file doesn't exist, create it:
-   ```json
-   {
-     "autoMemoryDirectory": "~/core/memory/"
-   }
-   ```
-
-5. Verify the memory directory itself exists:
-   ```
-   !`ls ~/core/memory/ 2>/dev/null && echo "OK" || echo "MISSING"`
-   ```
-   If missing, create it: `!`mkdir -p ~/core/memory/``
-
----
-
-## Phase 4 — Per-Project Memory Overrides
-
-Some projects write memory to a project-specific subdirectory. Check if any are needed for projects on this device.
-
-1. List known configured projects:
-   ```
-   !`ls ~/core/memory/ 2>/dev/null`
-   ```
-   Any subdirectory here (other than files like `MEMORY.md` or skill directories like `core-mem-sweep/`, `core-mem-todo/`, `core-mem-install/`, `core-mem-sync/`) is a project-scoped memory directory.
-
-2. For each project-scoped directory found, check if the corresponding project root exists on this device:
-   ```
-   !`ls ~/projects/<name>/ 2>/dev/null && echo "EXISTS" || echo "MISSING"`
-   ```
-   (Try common locations: `~/projects/`, `~/<name>/`, `~/code/`.)
-
-3. For each project that **exists locally**, check if `.claude/settings.local.json` is already present in it:
-   ```
-   !`cat ~/<project-path>/.claude/settings.local.json 2>/dev/null || echo "MISSING"`
-   ```
-
-4. For any project missing the local override, offer to create it. If the user confirms:
-   - Create `<project-path>/.claude/settings.local.json`:
-     ```json
-     {
-       "autoMemoryDirectory": "~/core/memory/<project-name>/"
-     }
-     ```
-
----
-
-## Phase 5 — Vault Skills
+## Phase 3 — Vault Skills
 
 Link the vault's skill definitions into Claude Code's skills directory so `/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, and `/core-mem-sync` are available in every session.
 
@@ -203,10 +135,10 @@ Link the vault's skill definitions into Claude Code's skills directory so `/core
 
 3. For any missing or broken link, create it:
    ```
-   !`ln -sf ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep`
-   !`ln -sf ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo`
-   !`ln -sf ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install`
-   !`ln -sf ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync`
+   !`ln -sf ~/core/.skills/core-mem-sweep ~/.claude/skills/core-mem-sweep`
+   !`ln -sf ~/core/.skills/core-mem-todo ~/.claude/skills/core-mem-todo`
+   !`ln -sf ~/core/.skills/core-mem-install ~/.claude/skills/core-mem-install`
+   !`ln -sf ~/core/.skills/core-mem-sync ~/.claude/skills/core-mem-sync`
    ```
 
 4. Verify all four symlinks resolve:
@@ -216,7 +148,7 @@ Link the vault's skill definitions into Claude Code's skills directory so `/core
 
 ---
 
-## Phase 6 — Connectivity Test
+## Phase 4 — Connectivity Test
 
 Verify the MCP server can actually reach the vault.
 
@@ -246,8 +178,6 @@ VAULT SETUP COMPLETE
 ✓  Vault found at ~/core
 ✓  Obsidian plugins installed (confirmed by user)
 ✓  MCP server: mcp-obsidian registered
-✓  Auto-memory: ~/core/memory/
-✓  Per-project overrides: <list or "none needed">
 ✓  Skills linked: /core-mem-sweep  /core-mem-todo  /core-mem-install  /core-mem-sync
 ────────────────────────────────────────────────
 Next: restart Claude Code to activate the MCP server,

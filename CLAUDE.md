@@ -25,21 +25,15 @@ claude mcp add --global mcp-obsidian \
   -- uvx mcp-obsidian
 ```
 
-**Auto-memory directory** (add to `~/.claude/settings.json`):
-```json
-{ "autoMemoryDirectory": "~/core/memory/" }
-```
-Per-project override: add `.claude/settings.local.json` with `"autoMemoryDirectory": "~/core/memory/<project-name>/"` in the project root.
-
-**Vault skills** (`/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, `/core-mem-sync`):
+**Vault skills** (`/core-mem-sweep`, `/core-mem-todo`, `/core-mem-install`, `/core-mem-sync`) — definitions live in `.skills/`:
 ```bash
 mkdir -p ~/.claude/skills
-ln -s ~/core/memory/core-mem-sweep ~/.claude/skills/core-mem-sweep
-ln -s ~/core/memory/core-mem-todo ~/.claude/skills/core-mem-todo
-ln -s ~/core/memory/core-mem-install ~/.claude/skills/core-mem-install
-ln -s ~/core/memory/core-mem-sync ~/.claude/skills/core-mem-sync
+ln -s ~/core/.skills/core-mem-sweep ~/.claude/skills/core-mem-sweep
+ln -s ~/core/.skills/core-mem-todo ~/.claude/skills/core-mem-todo
+ln -s ~/core/.skills/core-mem-install ~/.claude/skills/core-mem-install
+ln -s ~/core/.skills/core-mem-sync ~/.claude/skills/core-mem-sync
 ```
 
 ## Memory Policy
 
-Project facts → write to `Projects/<Name>/<Name>.md` (or a sub-page linked from it). Agent behavior preferences → write to `~/.claude/` memory only. Never use `~/.claude/projects/` for project facts; the vault is the authoritative store.
+Project facts → write to `Projects/<Name>/<Name>.md` (or a sub-page linked from it). Agent identity and behavioral memory → the agent's own store, not the vault. The vault is the authoritative store for project knowledge; never scatter project facts into per-session agent memory files.
