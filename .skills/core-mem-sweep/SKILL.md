@@ -1,207 +1,83 @@
 ---
 name: core-mem-sweep
-description: Process unprocessed Daily/ notes into their respective vault destinations across multiple analysis passes
+description: Fold a batch of collected or synthesized notes (a weekly work digest, a research/meeting dump, or raw daily captures) into project nodes, topic pages, and other homes at high fidelity — from the SOURCE — then leave a thin dated index that links out. Not a "route scraps out of a compressed summary" tool.
 allowed-tools: Read Write Edit Glob Grep Bash mcp__mcp-obsidian__obsidian_get_file_contents mcp__mcp-obsidian__obsidian_list_files_in_dir mcp__mcp-obsidian__obsidian_patch_content mcp__mcp-obsidian__obsidian_simple_search mcp__mcp-obsidian__obsidian_complex_search mcp__mcp-obsidian__obsidian_get_recent_changes
 ---
 
-You are performing a structured sweep of the user's `Daily/` quick-capture notes in their Obsidian vault at `~/core`. Your job is to read, analyze, route, and file all unprocessed content into the right places across the vault.
+You fold collected/synthesized work into this Obsidian vault (`~/core`). The input is a batch of notes for a period — e.g. a weekly work digest, a stack of meeting notes, a research dump, or a set of raw daily captures — plus, sometimes, a pre-written summary of it.
 
-Work through the passes below **in order**. Do not skip a pass. After each pass, show the user a concise summary before proceeding. **Do not modify any files until Pass 7.**
+## The model (read this first)
 
----
+A tempting-but-wrong approach is to route small items out of an already-compressed dated summary into the nodes. That makes a **lossy funnel** — `raw source → summary → dated note → distilled node bullet` — and the richest material (a raw PR diff, the full meeting notes) never reaches the project page where it belongs.
 
-## Pass 0 — Inventory
+**The model: substance folds NATIVELY into projects, from the SOURCE; the dated note is a thin INDEX, not a summary.**
 
-1. List all files in `Daily/` using the Obsidian MCP tool or Glob.
-2. Skip any file that already contains `#processed` in its content.
-3. Skip the file for today's date — daily notes are only swept retroactively to avoid missing edits made after a sweep.
-4. For each unprocessed file: note the date, approximate word count, and whether the file has any real content (skip empty templates).
-5. Show the user a table:
+- **Read the raw source, not a summary of it.** The detail lives in the raw material (full meeting notes, PR/commit activity with diffs, source threads). A pre-written summary is *framing only* — use it to orient, never as the thing you fold. If a sub-agent gathered the material, read the actual source files yourself; don't fold off a summary-of-a-summary.
+- **Fold each slice at HIGH FIDELITY into where it belongs:**
+  - Engineering / project work → the project node or its lab-notebook page: provenance (PR/commit/ticket/run links, outcomes) + narrative.
+  - **Meeting notes → folded FULLY, per-meeting**, into the relevant node. Meetings are high-signal (decisions, alignment, direction) — don't compress several to one headline or drop one.
+  - Non-project content → its native home (personal/career → an `Areas/` page; a tooling or process note → the relevant node).
+  - **Link out liberally** — tickets, PRs/commits, docs, threads, run URLs. Real clickable URLs over bare references, even when a project page already carries the link (duplication is fine).
+- **Don't re-fold what's already native.** A well-maintained node often already holds the period's work — the fold catches the **homeless** content and *adds* provenance/links, rather than duplicating.
+- **The dated `Daily/YYYY-MM-DD.md` becomes a thin index:** "threads that moved → [[project page]] where the detail landed," with links out, and NO duplicated substance.
 
-   | File | Date | Status |
-   |---|---|---|
-   | 2026-04-05.md | 2026-04-05 | Has content |
-   | 2026-04-04.md | 2026-04-04 | Empty template |
-
-6. Confirm with the user which files to include in the sweep. Default: all unprocessed non-empty files.
+Non-destructive: append/restructure, never delete the user's content. Present a plan before writing.
 
 ---
 
-## Pass 1 — Full Extraction
+## Pass 0 — Pick the input
+1. Identify the batch to fold (the period's collected notes / digest, or a set of `Daily/` captures). Confirm with the user.
+2. If the input is genuinely raw **quick-capture scraps** (a stray todo/link/idea, no richer source behind it), use the **Quick-capture fallback** at the bottom — those get routed, not folded-from-source.
 
-Read every file selected in Pass 0 in full. Extract all content verbatim into an internal working list, organized by source file. Do not summarize yet — preserve exact wording for todos and ideas since they may need literal text.
+## Pass 1 — Read the source
+Read the raw material directly, prioritizing by signal: **meeting notes first**, then project/engineering activity (with diffs/detail), then tickets, then threads/email. Skim any pre-written summary for framing only.
 
-Internally tag each extracted item by type:
-- `TODO` — any checkbox `- [ ]` or clear action item ("need to", "should", "will")
-- `IDEA` — speculative thoughts, side-project sparks, things to explore
-- `LINK` — URLs or references to external resources
-- `DRIVE` — Google Drive links
-- `NOTE` — factual context, decisions made, things that happened
-- `UNCLEAR` — fragments, incomplete sentences, ambiguous content
+## Pass 2 — Partition by destination
+Group the material by where it will LAND (project node / topic page / Area / People), not by source. For each destination note: what's new, what's likely already-native, and the external links to carry. Show the user the partition before continuing.
 
----
+## Pass 3 — Check existing destinations
+Read each target page. Decide per slice: **already native** (skip / add only missing links) vs **homeless** (fold in full). This keeps the fold from duplicating a well-maintained node.
 
-## Pass 2 — Cluster by Topic
+## Pass 4 — Fold plan review
+Present the plan (destinations + what lands in each, already-native no-ops, and the thin index) and wait for the user's "go" before writing.
 
-Group the extracted items by likely topic or project. Use project names, proper nouns, and recurring themes as cluster anchors.
+## Pass 5 — Execute the folds
+Append into the right section of each destination (create if absent): lab-notebook/log entries get provenance + narrative; nodes get a dated meeting/decision entry (meetings in full, per-meeting); todos become `- [ ] task` checkboxes on the relevant node; Drive/links under `## Drive` or inline. Carry the external links. Only append/restructure.
 
-For each cluster, record:
-- **Cluster name** (e.g. "myapp", "D3 charting idea", "Health/fitness")
-- **Items in cluster** (count + brief description)
-- **Confidence** (High / Medium / Low) that this is a coherent topic
+## Pass 6 — Write the thin index
+Write `Daily/YYYY-MM-DD.md` as a thin index (its substance now lives natively):
 
-Flag any items that don't fit a cluster as `UNROUTABLE`.
-
-Show the user the cluster list before continuing:
-
-> Found 4 clusters: myapp (3 items), D3 charting idea (1 item), groceries (2 items), unroutable (1 item). Continuing to destination mapping…
-
----
-
-## Pass 3 — Destination Mapping
-
-For each cluster, find the best destination in the vault:
-
-1. Search `Projects/Index.md`, `Writing/Index.md`, `Areas/Index.md` for matching nodes.
-2. For each match, record the destination path (e.g. `Projects/myapp/myapp.md`).
-3. For clusters with no match:
-   - If it looks like a new project/area/writing topic → flag as **PROPOSED NEW NODE**
-   - If it's a one-off idea or reference → route to `Inbox.md`
-   - If truly unroutable → route to `Inbox.md` with a note
-
-For `DRIVE` items: destination is the `## Drive` section of the relevant node.
-For `TODO` items: destination is the body of the relevant node (as `- [ ] task`).
-For `LINK`/`NOTE`/`IDEA` items: destination is a relevant section in the node, or a new section if none fits.
-
----
-
-## Pass 4 — Tag Audit
-
-Search the vault for all existing tags:
-
-```
-grep -r "#" ~/core --include="*.md" | grep -oP '#[a-z][a-zA-Z0-9/_-]+' | sort -u
-```
-
-Build a list of all active tags. For each cluster from Pass 2, identify which existing tags apply (e.g. `#active`, `#project/myapp`, `#area/health`).
-
-Note any clusters that have no matching tag — these are candidates for new tags in Pass 5.
-
----
-
-## Pass 5 — New Tag & New Node Proposals
-
-For any cluster that needs a new tag or a new vault node, prepare proposals. **Do not create anything yet.**
-
-Present to the user:
-
-**Proposed new nodes:**
-- `Projects/d3-charting/` with `d3-charting.md` — for the D3 charting side-project idea
-  - Template: `Templates/Project-Node.md`
-  - Would be linked from `Projects/Index.md`
-
-**Proposed new tags:**
-- `#project/d3-charting` — to scope tasks and notes for the D3 project
-
-**No action needed for:** myapp (existing node), groceries (existing list)
-
-Ask the user: *"Approve, reject, or modify any of these before I proceed?"*
-
-Wait for explicit user approval or rejection of each proposal. Only approved proposals will be acted on in Pass 7. Rejected ones get routed to `Inbox.md` instead.
-
----
-
-## Pass 6 — Routing Plan Review
-
-Present the complete routing plan for user sign-off before any file is touched:
-
-```
-ROUTING PLAN
-────────────────────────────────────────────────
-Daily/2026-04-06.md
-  → [TODO]  "extend the D3 charting stuff"
-      dest: Projects/d3-charting/d3-charting.md (NEW — pending approval)
-      tag:  #project/d3-charting (NEW — pending approval)
-
-  → [NOTE]  ... (any other content)
-      dest:  Inbox.md
-
-────────────────────────────────────────────────
-Post-sweep: Daily/2026-04-06.md will be tagged #processed
-```
-
-Ask: *"Does this look right? Type 'go' to execute, or describe any changes."*
-
-Do not proceed until the user confirms.
-
----
-
-## Pass 7 — Execute
-
-With user approval, execute the routing plan:
-
-1. **For each destination node:**
-   - Read the current file content
-   - Append content in the appropriate section:
-     - Todos: under an `## Open` or inline as `- [ ] task text`
-     - Notes/context: under `## Log` or `## Notes` (create section if absent)
-     - Drive links: under `## Drive` (create section if absent)
-     - Ideas: under `## Ideas` (create section if absent)
-   - Write the updated file
-
-2. **For Inbox.md:**
-   - Append a dated section:
-     ```markdown
-     ### Swept from Daily — YYYY-MM-DD
-     - [item content]
-     ```
-
-3. **For approved new nodes:**
-   - Create the directory
-   - Copy the appropriate template (`Templates/Project-Node.md`, etc.)
-   - Fill in the project name and today's date
-   - Add the link to the relevant `Index.md`
-
-4. **Do not delete or overwrite any existing content.** Only append.
-
----
-
-## Pass 8 — Cleanup
-
-For each processed Daily/ file, append `#processed` on a new line at the bottom of the file. Do not delete the file.
-
-Example:
 ```markdown
-...existing content...
+---
+node: false
+---
+#index
 
-#processed
+# Index — YYYY-MM-DD
+> An INDEX, not a summary. Detail is folded natively into the linked pages; this records what moved and links out.
+
+## Threads that moved → where the detail lives
+- **<thread>** — <one line> [PR/ticket/doc/run links] → [[project page]]
+
+## Non-project
+- <personal / process / tooling> → [[Area or node]]
+
+## Open todos (roll-up — detail in each project)
+- [ ] … 📅 YYYY-MM-DD ⏫
 ```
+
+After writing, scan for the leading-bracket link footgun: a doc titled `[X] Title` written `[[X] Title](url)` breaks in Obsidian → reword the display text to drop the leading bracket (`[X Title](url)`). Grep the index for stray `[[...](` patterns.
+
+## Pass 7 — Summary
+Report: what was folded, destinations touched, already-native skips, index word count, links carried.
 
 ---
 
-## Final Summary
+## Quick-capture fallback (raw scraps, no richer source)
+When the input is genuinely raw quick-capture (a stray todo/link/idea in `Daily/`, nothing richer behind it), there's nothing to fold-from-source — just route it: read the scrap, cluster by project, append to the relevant node (`## Log` / a `- [ ]` todo / a `## Drive` link), and tag the scrap `#processed`. This is the only case where the old route-and-tag behavior applies. A scrap already tagged `#processed` was handled — skip it.
 
-After all passes, show a concise summary:
-
-```
-SWEEP COMPLETE — YYYY-MM-DD
-────────────────────────────────────────────────
-Processed:  1 daily note
-Items filed: 3
-  → Projects/d3-charting/d3-charting.md  (1 todo, 1 note)
-  → Inbox.md                        (1 unroutable item)
-New nodes created: Projects/d3-charting/
-New tags proposed: #project/d3-charting
-Skipped: 0 (empty templates)
-────────────────────────────────────────────────
-```
-
----
-
-## Edge Cases
-
-- **Partial sentences / truncated notes:** treat as `UNCLEAR`, route to Inbox.md with a note that the original was incomplete.
-- **Multiple projects in one daily note:** split the content and route each piece to its destination.
-- **Already-existing todos in destination node:** do not deduplicate — just append. The user can clean up manually.
-- **No unprocessed files found:** report "Nothing to sweep. Daily/ has no unprocessed files." and stop.
-- **Obsidian MCP unavailable:** fall back to direct file reads via the Read/Write tools against `~/core/`.
+## Edge cases
+- **Multiple projects in one note/thread:** split and route each piece.
+- **Already-native content:** don't duplicate — add only missing provenance/links.
+- **Nothing to fold:** report it and offer the quick-capture fallback.
+- **Obsidian MCP unavailable:** fall back to direct Read/Write against `~/core/`.

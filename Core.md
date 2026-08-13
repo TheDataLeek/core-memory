@@ -161,13 +161,13 @@ Todos use the **Tasks plugin**. Write tasks as standard checkboxes anywhere in t
 
 ---
 
-## Daily Capture (`Daily/` folder)
+## Daily Capture & the fold model (`Daily/` folder)
 
-Quick captures from the iOS widget and daily notes live here — no structure required. Just dump thoughts, links, and tasks freely in a note named `YYYY-MM-DD`.
+Two kinds of note live here. **Quick captures** (from a mobile widget) — dump thoughts, links, and tasks freely in a note named `YYYY-MM-DD`, no structure required. And **dated index pages** — when a batch of collected/synthesized work is folded into the vault, its dated note is a *thin index*, not a summary.
 
-If a structured daily note for today already exists, append new mobile captures to it rather than creating a second file for the same date. The `Mobile-Drop` template is for days where no daily note exists yet.
+**The fold model (how a period's work enters the vault):** substance folds **natively into the project nodes/pages, read from the source** (raw meeting notes, PR/commit detail, threads) at high fidelity — with links out to primary sources (tickets, PRs, docs, runs). The dated `Daily/YYYY-MM-DD.md` becomes a **thin index** that only points to where the detail landed; it holds no unique substance. Don't write one big lossy dated summary and route scraps out of it — that funnel (`source → summary → dated note → distilled bullet`) throws away detail before it ever reaches the project page.
 
-An agent can sweep `Daily/` and route notes into proper project nodes. To trigger a sweep, ask: *"process my daily notes."*
+To fold a batch (or route raw captures), ask: *"process my daily notes"* → runs `/core-mem-sweep`.
 
 ---
 

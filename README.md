@@ -6,7 +6,7 @@ A ready-to-use Obsidian vault that serves as a persistent second memory for Clau
 
 - An Obsidian vault structured for AI-assisted knowledge work
 - Claude agents read `Core.md` at session start for operating instructions, then read the relevant `Projects/<Name>/<Name>.md` for project context
-- Four vault-maintenance skills (in `.skills/`, symlinked into `~/.claude/skills`): `/core-mem-sweep` (process daily notes into project nodes), `/core-mem-todo` (add a todo with session context), `/core-mem-install` (setup wizard for new devices), `/core-mem-sync` (pull template updates into vault)
+- Four vault-maintenance skills (in `.skills/`, symlinked into `~/.claude/skills`): `/core-mem-sweep` (fold a period's collected notes from source into project nodes + leave a thin dated index), `/core-mem-todo` (add a todo with session context), `/core-mem-install` (setup wizard for new devices), `/core-mem-sync` (pull template updates into vault)
 
 ## Quickstart
 
