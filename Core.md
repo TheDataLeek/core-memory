@@ -161,11 +161,15 @@ Todos use the **Tasks plugin**. Write tasks as standard checkboxes anywhere in t
 
 ---
 
-## Daily Capture & the fold model (`Daily/` folder)
+## Daily Capture & the hive-folder model (`Daily/` folder)
 
-Two kinds of note live here. **Quick captures** (from a mobile widget) — dump thoughts, links, and tasks freely in a note named `YYYY-MM-DD`, no structure required. And **dated index pages** — when a batch of collected/synthesized work is folded into the vault, its dated note is a *thin index*, not a summary.
+Two kinds of note live here. **Quick captures** (from a mobile widget) — dump thoughts, links, and tasks freely in a note named `YYYY-MM-DD`, no structure required. And **hive folders** — when a batch of collected/synthesized work (a weekly hive) enters the vault, the *whole hive folder* lives here as `Daily/YYYY-MM-DD/`, holding its verbatim `honey/` (reports + ticket drafts) and `pollen/*_summary.md` (per-source summaries), plus a slim **folder-note index** at `Daily/YYYY-MM-DD/YYYY-MM-DD.md`.
 
-**The fold model (how a period's work enters the vault):** substance folds **natively into the project nodes/pages, read from the source** (raw meeting notes, PR/commit detail, threads) at high fidelity — with links out to primary sources (tickets, PRs, docs, runs). The dated `Daily/YYYY-MM-DD.md` becomes a **thin index** that only points to where the detail landed; it holds no unique substance. Don't write one big lossy dated summary and route scraps out of it — that funnel (`source → summary → dated note → distilled bullet`) throws away detail before it ever reaches the project page.
+**The index is deliberately orphaned from the project mesh — tags group it, not links.** It is tagged `#hive #weekly` (that is how hive notes connect *to each other*), carries a provenance line + a plain-text summary (project names as **text, never** `[[wikilinks]]` to project pages), and links *only* to its own co-located `honey/`/`pollen/` files via **relative markdown links** (`[weekly_update](honey/weekly_update.md)`). Each hive becomes a self-contained star cluster in the graph view, isolated from the project mesh, so the graph stays legible. The verbatim honey/pollen files **are** the immutable record — tickets mutate over time; these snapshots do not.
+
+**The fold model (how a period's work enters the vault):** substance still folds **natively into the project nodes/pages, read from the source** (raw meeting notes, PR/commit detail, threads) at high fidelity — with links out to primary sources (tickets, PRs, docs, runs). The hive index only *points* (in plain text) to where detail landed and preserves the raw pollen/honey; it holds no unique project substance. Don't write one big lossy dated summary and route scraps out of it.
+
+**On move-in, prune to the readable record:** keep `honey/` + `pollen/*_summary.md`; drop raw `github_combined/**`, `*.json` dumps, `*.txt` scratch, and `.DS_Store` — they bloat sync with ~zero re-read value.
 
 To fold a batch (or route raw captures), ask: *"process my daily notes"* → runs `/core-mem-sweep`.
 
